@@ -1,0 +1,14 @@
+<article class="card mt-3">
+    <section class="card-header">
+        Автор: <%= post.user.name%>
+    </section>
+    <div class="card-body">
+        <h2><%= post.title %></h2>
+        <section class="card-text">
+            <time datetime="<%= post.format_created_at %>", class="small">
+                <%= post.format_created_at %>
+            </time>
+        </section>
+            <%= link_to 'Открыть', post_path(post), class: "btn btn-primary mt-2" %>
+    </div>
+</article>

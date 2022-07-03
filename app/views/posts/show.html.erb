@@ -1,0 +1,37 @@
+<h1><%= @post.title %></h1>
+<h3>Автор: <%= @post.user.name %></h3>
+<hr>
+
+<div class="lead my-3">
+    <%= sanitize @post.body %>
+</div>
+<hr class="my-3">
+<div class="row mb-3">
+    <div class="col">Дата создания: <%= @post.format_created_at %></div>
+    <div class="col">Дата последнего изменения: <%= @post.format_updated_at %></div>
+</div>
+<% if owner?(@post) %>
+    <%= link_to 'Редактировать', edit_post_path(@post), class: "btn btn-secondary" %>
+    <%= link_to 'Удалить', post_path(@post), data: {turbo_method: :delete, turbo_confirm: 'Вы уверены?'}, class: "btn btn-danger"%>
+<% end %>
+    <% if user_signed_in? %>
+        <hr class="my-3">
+        <h2>Напишите комментарий</h2>
+        <%= render partial: "shared/errors", locals: {obj: @comment}%>
+        <%= form_with model: [@post, @comment] do |f| %>
+            <div class="mb-3 row">
+                <div>
+                    <%= f.text_area :body,  placeholder: "Содержание", class: 'form-control' %>
+                </div>
+            </div>
+
+            <%= f.submit "Отправить", class: 'btn btn-primary'%>
+        <%end%>
+    <%end%>
+
+    <hr class="my-3">
+    <h2>Ответы</h2>
+    <%= pagination @pagy %>
+    <%= render partial: 'comments/comment', collection: @comments,
+    as: :comment, locals: {post: @post}%>
+</div>

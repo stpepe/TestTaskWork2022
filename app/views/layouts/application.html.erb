@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AppBlog</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
+
+  <body>
+        <%= render partial: "layouts/nav"%>
+    <main>
+      <div class="container">
+        <% flash.each do |k, v|%>
+          <%= tag.div v, class: "alert alert-#{k} mt-3", role: "alert"%>
+        <%end%>
+        <%= yield %>
+      </div>
+    </main>
+  </body>
+</html>

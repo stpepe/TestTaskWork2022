@@ -1,0 +1,17 @@
+<article class="card mt-3">
+    <section class="card-header">
+        От: <%= comment.user.name%>
+    </section>
+    <div class="card-body">
+        <time datetime="<%= comment.format_created_at %>">
+                    <%= comment.format_created_at %>
+        </time>
+        <div class="mt-2 mb-3">
+            <%= sanitize comment.body %>
+        </div>
+        <% if owner?(comment) %>
+            <%= link_to 'Редактировать', edit_post_comment_path(post,comment), class: "btn btn-secondary btn-sm" %>
+            <%= link_to 'Удалить', post_comment_path(post,comment), data: {turbo_method: :delete, turbo_confirm: 'Вы уверены?'}, class: "btn btn-danger btn-sm"%>
+        <% end %>
+    </div>
+</article>

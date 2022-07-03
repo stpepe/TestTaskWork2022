@@ -1,0 +1,20 @@
+<header class="p-3 bg-dark text-white mb-3">
+    <div class="container">        
+        <nav class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><%= link_to 'Главная страница', root_path, class: 'nav-link px-2' %></li>
+            <li><%= link_to 'Публикации', posts_path, class: 'nav-link px-2' %></li>
+            </ul>
+            <ul class="nav col-12 col-lg-auto mb-2 mb-md-0">
+                <% if user_signed_in? %>
+                    <li> <%= link_to "Создать новую публикацию", new_post_path, class: "nav-link px-2"%></li>
+                    <li> <%= link_to "#{session[:name]}", "posts/own/#{session[:user_id]}", class: "nav-link px-2"%></li>
+                    <li> <%= link_to 'Выйти', session_path, class: "nav-link px-2", data: {turbo_method: :delete, turbo_confirm: 'Вы уверены?'}%></li>
+                <% else %>
+                    <li> <%= link_to 'Зарегистрироваться', new_user_path, class: "nav-link px-2"%></li>
+                    <li> <%= link_to 'Войти', new_session_path, class: "nav-link px-2"%></li>
+                <% end %>
+            </ul>
+        </nav>
+    </div>
+</header>
