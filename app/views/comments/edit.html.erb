@@ -1,41 +1,9 @@
-<h1 class="mt-3">
-    <%= @post.title %>
-</h1>
-<div class="lead my-3">
-    <%= sanitize @post.body %>
-</div>
-<hr class="my-3">
-<div class="row mb-3">
-    <div class="col">Дата создания: <%= @post.format_created_at %></div>
-    <div class="col">Дата последнего изменения: <%= @post.format_updated_at %></div>
-</div>
-<%= link_to 'Редактировать', edit_post_path(@post), class: "btn btn-secondary" %>
-<%= link_to 'Удалить', post_path(@post), data: {method: :delete, confirm: 'Вы уверены?'}, class: "btn btn-danger"%>
-<div class="mt-3">
-    <hr class="my-3">
-    <h2>Напишите комментарий</h2>
+<%= render partial: "shared/errors", locals: {obj: @comment}%>
     <%= form_with model: [@post, @comment] do |f| %>
         <div class="mb-3 row">
             <div>
-                <%= f.text_area :body, required: true, minlength: 3, placeholder: "Содержание", class: 'form-control' %>
+                <%= f.text_area :body,  placeholder: "Содержание", class: 'form-control' %>
             </div>
         </div>
-
-        <%= f.submit "Изменить", class: 'btn btn-primary'%>
-    <%end%>
-
-    <hr class="my-3">
-    <h2>Ответы</h2>
-    <%= pagination @pagy %>
-    <% @comments.each do |comment|%>
-        <article>
-            <time datetime="<%= comment.format_created_at %>">
-                        <%= comment.format_created_at %>
-            </time>
-            <p><%= comment.body %></p>
-            <%= link_to 'Редактировать', edit_post_comment_path(@post,comment), class: "btn btn-secondary btn-sm" %>
-            <%= link_to 'Удалить', post_comment_path(@post,comment), data: {method: :delete, confirm: 'Вы уверены?'}, class: "btn btn-danger btn-sm"%>
-            <hr class="my-3">
-        </article>
-    <%end%>
-</div>
+    <%= f.submit "Изменить", class: 'btn btn-primary'%>
+<%end%>

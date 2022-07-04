@@ -16,7 +16,6 @@ class CommentsController < ApplicationController
     end 
 
     def destroy
-        #comment = @post.comments.find params[:id]
         @comment.destroy 
         redirect_to post_path(@post), status: 303
         flash[:success]="Комментарий удален"
@@ -24,7 +23,6 @@ class CommentsController < ApplicationController
 
     def edit
         @comment = @post.comments.find params[:id]
-        @pagy, @comments = pagy @post.comments.order(created_at: :desc)
     end
 
     def update
@@ -32,8 +30,7 @@ class CommentsController < ApplicationController
             flash[:success] = "Комментарий изменен"
             redirect_to post_path(@post)
         else
-            @comments = pagy @post.comments.order(created_at: :desc)
-            render "posts/show"
+            render :edit, status: :unprocessable_entity
         end 
     end 
 

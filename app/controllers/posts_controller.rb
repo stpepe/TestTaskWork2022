@@ -34,7 +34,7 @@ class PostsController < ApplicationController
                 redirect_to post_path
                 flash[:success]="Запись изменена"
             else
-                render :edit
+                render :edit, status: :unprocessable_entity
             end
     end
 
