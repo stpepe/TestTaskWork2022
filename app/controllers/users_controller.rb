@@ -9,6 +9,7 @@ class UsersController < ApplicationController
         @user = User.new user_params 
         if @user.save
             session[:user_id] = @user.id
+            session[:name] = @user.name
             redirect_to root_path
             flash[:success]="Добро пожаловать #{@user.name}!"
         else
